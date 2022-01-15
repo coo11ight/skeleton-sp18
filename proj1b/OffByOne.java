@@ -5,7 +5,7 @@ public class OffByOne implements CharacterComparator {
         int a,b;
         a = x;
         b = y;
-        if (a == b - 1){
+        if (a == b - 1 || a - 1 == b){
             return true;
         }
         return false;
