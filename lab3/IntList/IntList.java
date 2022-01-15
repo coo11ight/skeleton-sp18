@@ -112,6 +112,26 @@ public class IntList {
 
 
 
+    public IntList reverse(){
+        if (this == null || this.rest == null){
+            return this;
+        }
+
+
+
+        IntList x = new IntList (this.first, this.rest);
+        IntList result = null;
+        while (x != null )
+        {
+            IntList reverseList  =  new IntList(x.first,result);
+            result = reverseList;
+            x = x.rest;
+        }
+        return result;
+
+    }
+
+
 
 
 
