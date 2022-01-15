@@ -10,11 +10,11 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     /* Array for storing the buffer data. */
     private T[] rb;
 
-    private class RingBufferIterator implements Iterator<T>{
+    private class RingBufferIterator implements Iterator<T> {
         private int pos;
         private int curNum;
 
-        private RingBufferIterator(){
+        private RingBufferIterator()  {
             pos = first;
             curNum = 0;
         }
@@ -25,18 +25,20 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         }
 
         @Override
-        public T next(){
-            T item = rb[first];
-            pos = (pos + 1) % capacity;
-            curNum++;
-            return item;
+        public T next() {
+            if (hasNext()) {
+                T item = rb[first];
+                pos = (pos + 1) % capacity;
+                curNum++;
+                return item;
+            }
+            throw new RuntimeException("no hasNext");
         }
-
 
     }
 
     @Override
-    public Iterator<T> iterator(){
+    public Iterator<T> iterator() {
         return new RingBufferIterator();
     }
 
@@ -49,7 +51,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         first = 0;
         last = 0;
         this.fillCount = 0;
-        rb =(T[]) new Object[capacity];
+        rb = (T[]) new Object[capacity];
     }
 
     /**
@@ -78,11 +80,11 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      */
 
     public T dequeue() {
-        if (isEmpty()){
+        if (isEmpty()) {
             throw new RuntimeException("Ring buffer underflow");
         }
         T item = rb[first];
-        if (first == capacity - 1){
+        if (first == capacity - 1) {
             first = 0;
         }
         else {
@@ -97,11 +99,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
      * Return oldest item, but don't remove it.
      */
     public T peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("Peek encounters empty");
+        }
         return rb[first];
 
     }
 
 
-
-    // TODO: When you get to part 5, implement the needed code to support iteration.
 }
