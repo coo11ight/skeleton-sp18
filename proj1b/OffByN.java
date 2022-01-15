@@ -9,7 +9,7 @@ public class OffByN implements CharacterComparator {
     public boolean equalChars(char x,char y){
         int a;
         a = y - x;
-        if ( a == gap){
+        if ( a == gap || a == gap * (-1)){
             return true;
         }
         return false;
