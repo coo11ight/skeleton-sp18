@@ -30,7 +30,7 @@ public class PercolationStats {
                     }
             }
         }
-        testMean = StdStats.mean(results)  ;
+        testMean = StdStats.mean(results)  / N / N;
         testStddev = StdStats.stddev(results) ;
         testConfidenceLow = testMean - 1.96 * testStddev / Math.sqrt(T);
         testConfidenceHigh = testMean + 1.96 * testStddev / Math.sqrt(T);
@@ -53,7 +53,7 @@ public class PercolationStats {
 
     public static void main(String args[]){
         PercolationFactory pf = new PercolationFactory();
-        PercolationStats p1 = new PercolationStats(15,35, pf );
+        PercolationStats p1 = new PercolationStats(1000,100,pf);
         System.out.println(p1.mean());
         System.out.println(p1.stddev());
     }
