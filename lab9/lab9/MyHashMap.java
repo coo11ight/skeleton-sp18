@@ -13,6 +13,7 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
 
     private static final int DEFAULT_SIZE = 16;
     private static final double MAX_LF = 0.75;
+    private static final int EXPAND_F = 2;
 
     private ArrayMap<K, V>[] buckets;
     private int size;
@@ -53,19 +54,38 @@ public class MyHashMap<K, V> implements Map61B<K, V> {
      */
     @Override
     public V get(K key) {
-        throw new UnsupportedOperationException();
+       int bucket = hash(key);
+       return buckets[bucket].get(key);
     }
 
     /* Associates the specified value with the specified key in this map. */
     @Override
     public void put(K key, V value) {
-        throw new UnsupportedOperationException();
+        if (get(key) != null) {
+            buckets[hash(key)].put(key, value);
+        } else {
+            size++;
+            if (loadFactor() > MAX_LF) {
+                ArrayMap<K,V>[] oldBuckets = buckets;
+                buckets = new  ArrayMap[oldBuckets.length * EXPAND_F] ;
+                for (int i = 0; i < buckets.length ; i++){
+                    buckets[i] = new ArrayMap<>();
+                }
+                for (int i = 0; i < oldBuckets.length; i++){
+                    for (K k : oldBuckets[i].keySet()){
+                        buckets[hash(k)].put(k,oldBuckets[i].get(k));
+                    }
+                }
+            } else {
+                buckets[hash(key)].put(key, value);
+            }
+        }
     }
 
     /* Returns the number of key-value mappings in this map. */
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+       return size;
     }
 
     //////////////// EVERYTHING BELOW THIS LINE IS OPTIONAL ////////////////
