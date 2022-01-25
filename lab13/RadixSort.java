@@ -27,9 +27,16 @@ public class RadixSort {
      * @param index The position to sort the Strings on.
      */
     private static void sortHelperLSD(String[] asciis, int index) {
-        // Optional LSD helper method for required LSD radix sort
+        int[] arr = new int[asciis.length];
+        int i = 0;
+        for (String s : asciis){
+            if (s.length() > index)
+        }
+
+
         return;
     }
+
 
     /**
      * MSD radix sort helper function that recursively calls itself to achieve the sorted array.
@@ -45,4 +52,11 @@ public class RadixSort {
         // Optional MSD helper method for optional MSD radix sort
         return;
     }
+
+    public static void main(String[] args){
+        System.out.println(();
+
+
+    }
+
 }
